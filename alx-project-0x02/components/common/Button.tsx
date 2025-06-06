@@ -1,7 +1,7 @@
 // Create a Button component in components/common/Button.tsx that accepts size (small, medium, large) and shape (rounded-sm, rounded-md, rounded-full) as props.
 
 import React from 'react'
-import { ButtonProps } from '@/interfaces'
+import { type ButtonProps } from '@/interfaces'
 
 const Button=({label, size="medium", shape="rounded-full", onclick}: ButtonProps) =>{
   const sizeClasses = {

@@ -1,7 +1,7 @@
 import React from 'react'
 // lket's import the header component
 import Header from '../components/layout/Header'
-import Button from '@/components/layout/Button'
+import Button from '@/components/common/Button'
 
 
 function about() {

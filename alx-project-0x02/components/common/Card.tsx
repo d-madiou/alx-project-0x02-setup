@@ -1,6 +1,6 @@
 // let's implement the Card component
 import React from 'react';
-import { CardProps } from '../../interfaces';
+import { type CardProps } from '../../interfaces';
 import Link from 'next/link';
 
 
