@@ -1,85 +1,32 @@
-import React, { useEffect, useState } from 'react'
-import ReactDOM from 'react-dom'
+// pages/users.tsx
+import { GetStaticProps } from 'next';
+import { UserProps } from '../interfaces';
+import UserCard from '@/components/common/UserCard';
+import Header from '@/components/layout/Header';
 
-interface modalProps  {
-  isOpen: boolean
-  onClose: () => void 
-  title?: string
-  content?: string
-  onSubmit?: (data: { title: string; content: string }) => void
+interface UsersPageProps {
+  users: UserProps[];
 }
 
-function PostModal({ isOpen, onClose, title, content, onSubmit }: modalProps) {
-  const [isTitle, setIsTitle] = useState(title || '')
-  const [isContent, setIsContent] = useState(content || '')
+export const getStaticProps: GetStaticProps<UsersPageProps> = async () => {
+  const res = await fetch('https://jsonplaceholder.typicode.com/users');
+  const users: UserProps[] = await res.json();
 
-  useEffect(() => {
-    if (isOpen) {
-      setIsTitle(title || '')
-      setIsContent(content || '')
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
-    }
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
-  }, [isOpen, title, content])
+  return {
+    props: {
+      users,
+    },
+  };
+};
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (onSubmit) {
-      onSubmit({ title: isTitle, content: isContent })
-    }
-    onClose()
-  }
-  if (!isOpen) return null
-
-  return ReactDOM.createPortal(
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg max-w-md w-full shadow-lg">
-        <h2 className="text-2xl font-bold mb-4">Post Form</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
-            <input
-              type="text"
-              value={isTitle}
-              onChange={(e) => setIsTitle(e.target.value)}
-              className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Content</label>
-            <textarea
-              value={isContent}
-              onChange={(e) => setIsContent(e.target.value)}
-              className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300"
-              rows={4}
-              required
-            />
-          </div>
-          <div className="flex justify-end gap-2">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-            >
-              Save
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>,
-    document.body
-  )
+export default function UsersPage({ users }: UsersPageProps) {
+  return (
+    <main className="p-8 bg-gray-100 min-h-screen">
+      <Header />
+      <h1 className="text-3xl font-bold mb-6">Users</h1>
+      {users.map((user) => (
+        <UserCard key={user.id} {...user} />
+      ))}
+    </main>
+  );
 }
-
-export default PostModal
