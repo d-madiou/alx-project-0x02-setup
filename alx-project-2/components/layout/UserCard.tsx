@@ -1,4 +1,5 @@
 // components/common/UserCard.tsx
+import React from 'react';
 import { UserProps } from '../../interfaces';
 
 const UserCard = ({ name, email, address }: UserProps) => {
