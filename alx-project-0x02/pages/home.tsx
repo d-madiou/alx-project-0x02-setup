@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 //let's import the header component
 import Header from '../components/layout/Header'
-import Card from '@/components/layout/Card'
+import Card from '@/components/common/Card'
 
 import PostModal from '@/components/layout/PostModal';
 
