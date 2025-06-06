@@ -1,6 +1,6 @@
 // pages/index.tsx
 import Head from 'next/head'
-import Header from '../components/layout/Header'
+import Header from '@/components/layout/Header';
 
 const Home = () => {
   return (

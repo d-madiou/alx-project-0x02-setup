@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 //let's import the header component
-import Header from '../components/layout/Header'
+import Header from '@/components/layout/Header';
 import Card from '@/components/common/Card'
 
-import PostModal from '@/components/layout/PostModal';
+import PostModal from '@/components/common/PostModal';
 
 function home() {
     const[modalOpen, setModalOpen] = useState(false);

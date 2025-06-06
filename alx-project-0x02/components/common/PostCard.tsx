@@ -1,6 +1,7 @@
 // components/common/PostCard.tsx
 import { PostProps } from '../../interfaces';
-import Header from './Header';
+import Header from '@/components/layout/Header';
+
 
 const PostCard = ({ title, content, userId }: PostProps) => {
   return (
